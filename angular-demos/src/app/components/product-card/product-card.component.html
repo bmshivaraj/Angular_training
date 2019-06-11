@@ -1,0 +1,40 @@
+<div class="card" style="width: 300px" [ngClass]="inCart ? 'in-cartColor' : 'default-cartColor'">
+
+  <img [src] = "product.picture" [alt]="product.name" class = "card-img-top">
+  <div class = "card-body">
+    <h5 class="card-title"> {{ product.name | uppercase }}</h5>
+    <p> {{ product.quantity_per_unit}}</p>
+    <p *ngIf="product.discount && product.discount>0"> 
+      <span style="text-decoration: line-through; font-size: 0.8em">
+          {{ product.unit_price | currency : 'INR'}}
+      </span>
+      &nbsp;
+      <span style="font-weight: bolder;">
+        {{ product | discountedPrice | currency : 'INR'}}
+      </span>
+    </p>
+    <p *ngIf="!product.discount || product.discount === 0">
+        <span style="font-weight: bolder;">
+          {{ product.unit_price | currency: 'INR' }} 
+        </span>
+    </p>
+
+    <div class="row" *ngIf="!inCart">
+      
+      <div class ="col-sm-6">
+        <input type="number" min="1" class="form-control" [(ngModel)]="quantity">
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-outline-success" (click)="addToCart()">Add</button>
+      </div>
+    </div>
+
+    <div class="text-center" *ngIf="inCart">
+      <button class="btn btn-secondary" (click)="decrementQuantity()"> - </button>
+      {{ quantity }} in cart
+      &nbsp;
+      <button class="btn btn-secondary" (click)="incrementQuantity()"> + </button>          
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<p>View all products</p>
+<h3>
+  Products by brand
+</h3>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let brand of brands | async">
+    {{ brand }}
+  </li>
+</ul>
+
+<h3>
+  Products by category
+</h3>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let category of categories | async">
+    {{ category }}
+  </li>
+</ul>
