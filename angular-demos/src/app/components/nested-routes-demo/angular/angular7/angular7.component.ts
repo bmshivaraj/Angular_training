@@ -10,6 +10,7 @@ export class Angular7Component implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("inside Angular7Component ngOnInit");
   }
 
 }

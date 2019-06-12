@@ -4,7 +4,11 @@ import 'rxjs/add/operator/map';
 import { Product } from '../models/Product';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:3000/';
+ const baseUrl = 'http://localhost:3000/';
+// const baseUrl = 'https://jsonblob.com/0d35e665-8d35-11e9-8bcb-af89678a8410';
+// const baseUrl = 'https://bmshivaraj.github.io/json-server-repo/data.json';
+//const baseUrl = 'https://my-json-server.typicode.com/bmshivaraj/json-server-repo/';
+
 @Injectable({
   providedIn: 'root'
 })

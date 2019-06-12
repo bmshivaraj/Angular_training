@@ -6,11 +6,14 @@ import { JavaComponent } from './components/nested-routes-demo/java/java.compone
 import { AngularComponent } from './components/nested-routes-demo/angular/angular.component';
 import { NodeComponent } from './components/nested-routes-demo/node/node.component';
 
+import { AngularjsComponent } from './components/nested-routes-demo/angular/angularjs/angularjs.component';
+import { Angular7Component } from './components/nested-routes-demo/angular/angular7/angular7.component';
+
 
 const routesConfig: Routes = [
     
     {
-        path: '/',
+        path: '',
         pathMatch: 'full',
         redirectTo: 'java'
     },
@@ -20,11 +23,26 @@ const routesConfig: Routes = [
     },
     {
         path: 'angular',
-        component: AngularComponent
+        component: AngularComponent,
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'angular7'
+            },
+            {
+                path: 'angular7',
+                component: Angular7Component
+            },
+            {
+                path: 'angularjs',
+                component: AngularjsComponent
+            }
+        ]
         
     },
     {
-        path: 'node.js',
+        path: 'nodejs',
         component: NodeComponent
     }
 ];
@@ -34,7 +52,9 @@ const routesConfig: Routes = [
             HomeComponent,
             JavaComponent,
             NodeComponent,
-            AngularComponent
+            AngularComponent,
+            Angular7Component,
+            AngularjsComponent
         ],
         imports: [
             BrowserModule,
