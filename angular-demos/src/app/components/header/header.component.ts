@@ -15,6 +15,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(private cs: CartService) {  }
   ngOnInit() {
+    this.itemCount = this.cs.itemCount;
+    this.cartValue = this.cs.cartValue;
+    
     // this.cs.onCartUpdated(() => console.log('in header, cart update notified'))
     this.cs.onCartUpdated(() => {
       this.itemCount = this.cs.itemCount;

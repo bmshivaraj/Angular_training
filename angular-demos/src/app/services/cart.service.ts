@@ -11,10 +11,37 @@ export class CartService {
   cart: Array<LineItem> = [];
   eventEmitter: EventEmitter = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+    if(window.localStorage['cart']){
+      this.cart = JSON.parse(window.localStorage.getItem('cart'));
+      this.eventEmitter.emit('cart-updated');
+    }
+   }
+
+  isProductInCart(id: number): boolean {
+    return this.cart.findIndex(itm => itm.product.id === id) !== -1;
+  }
+
+  getQuantityForProduct(id: number): number {
+    const index=this.cart.findIndex(itm => itm.product.id === id);
+    if(index != -1)
+    {
+      return this.cart[index].quantity;
+    }
+    else {
+      return 0;
+    }
+  }
 
   get itemCount() {
     return this.cart.length;
+  
+  }
+
+  emptyCart()
+  {
+    this.cart = [];
+    this.eventEmitter.emit('cart-updated');
   }
 
   get cartValue() {
@@ -47,11 +74,16 @@ export class CartService {
     }
     console.log(this.cart);
 
-    this.eventEmitter.emit('cart-updated')
+    this.eventEmitter.emit('cart-updated');
   }
 
   onCartUpdated(listener: any){
     // register an event listener (subscriber function) to a given event
     this.eventEmitter.on('cart-updated', listener);
+
+    //register another event listener for 'cart-updated' event
+    this.eventEmitter.on('cart-updated', () => {
+      window.localStorage.setItem('cart', JSON.stringify(this.cart));
+    })
   }
 }

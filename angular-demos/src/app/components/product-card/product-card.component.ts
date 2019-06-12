@@ -30,6 +30,11 @@ export class ProductCardComponent implements OnInit {
     //   "picture": "http://kvinod.com/images/products/10000068_17-fresho-capsicum-hybrid-green.jpg",
     //   "discount": 5
     // }
+
+    if(this.cs.isProductInCart(this.product.id)) {
+      this.inCart = true;
+      this.quantity = this.cs.getQuantityForProduct(this.product.id);
+    }
   }
 
   addToCart() {
