@@ -4,4 +4,8 @@
 <button class="btn btn-link" [routerLink]="['angularjs']">Angular JS 1.x (legacy)</button>
 
 
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+
+<app-angular7 (nameAdded)="nameAddedtoNameList($event)" (nameDeleted)="nameDeletedFromNameList($event)"></app-angular7>
+
+<!-- <app-angular7 (nameDeleted)="nameDeletedFromNameList($event)"></app-angular7> -->

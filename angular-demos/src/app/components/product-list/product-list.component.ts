@@ -3,7 +3,8 @@ import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-
+import * as $ from 'jquery';
+window['$'] = $;
 
 @Component({
   selector: 'app-product-list',
@@ -12,7 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-products: Observable<Product[]>;
+  // commenting because async does not work on array... only on observable... we need to fetch more records for scroll feature
+//  products: Observable<Product[]>;
+ 
+
+products: Product[] = [];
+ pageNum: number = 1
 
 //we are depended on router module to pass by_what and by_val etc... so use ActivatedRoute in constructor
   constructor(private ps: ProductsService, private activatedRoute: ActivatedRoute) { 
@@ -20,35 +26,41 @@ products: Observable<Product[]>;
   }
 
   ngOnInit() {
-//get the route parameters
-// this.activatedRoute.snapshot.params  -> this is synchronous
-// this.activatedRoute.params  -> this is asynchronous via observable
 
+    //scrol feature
 
-// const params = this.activatedRoute.snapshot.params;
-// console.log('params is',params);
+  const w = $(window);
+  const d = $(document);
 
-// if(params['by_what']){
-//   //by_what may be brand or category
-//   const { by_what,by_val } = params; // equal to const by_what = params.by_what and const by_val = params.by_val (this is called object destructring)
-//   this.products = this.ps.getProductsBy(by_what,by_val);
-// }
-// else
-// {
-//    //this must now be conditional
-//    this.products = this.ps.getProducts();
-// }
+  //this keyword will not have scope within window onscroll as this is a window function and not a angular one
+  const self = this;
+  //register an event handler for the windows scroll event
+    window.onscroll = function() {
+        const windowHeight = w.height();
+        const windowTopPosition = w.scrollTop();
+        const documentHeight = d.height();
+
+        if((windowHeight + windowTopPosition) >= (documentHeight - 50 ))
+        {
+          self.loadData();
+            
+        }
+      }
+      this.loadData();
+    }
   
     //use activatedRoute.params instead of activatedRoute.snapshot.params
     //if you want to do something on change of route parameters
+    loadData(){
     this.activatedRoute.params.subscribe(({by_what, by_val}) => {
       if(by_what){
-        this.products = this.ps.getProductsBy(by_what,by_val);
+        this.ps.getProductsBy(by_what,by_val, this.pageNum++).subscribe(data => this.products.push(...data));
       } else {
-        this.products = this.ps.getProducts();
+        this.ps.getProducts(this.pageNum++).subscribe(data => this.products.push(...data));
       }
     });
-
   }
+
+  
 
 }

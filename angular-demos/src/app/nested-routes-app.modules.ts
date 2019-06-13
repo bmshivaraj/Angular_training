@@ -8,6 +8,13 @@ import { NodeComponent } from './components/nested-routes-demo/node/node.compone
 
 import { AngularjsComponent } from './components/nested-routes-demo/angular/angularjs/angularjs.component';
 import { Angular7Component } from './components/nested-routes-demo/angular/angular7/angular7.component';
+import { BoxDirective } from '@directives/box.directive';
+import { DirectiveDemoComponent } from '@components/nested-routes-demo/directive-demo/directive-demo.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmployeeFormComponent } from '@components/nested-routes-demo/employee-form/employee-form.component';
+import { Ng1AppComponent } from '@components/nested-routes-demo/ng1-app/ng1-app.component';
+
+// import { BoxDirective } from './directives/box.directive';
 
 
 const routesConfig: Routes = [
@@ -44,6 +51,14 @@ const routesConfig: Routes = [
     {
         path: 'nodejs',
         component: NodeComponent
+    },
+    {
+        path: 'directives-demo',
+        component: DirectiveDemoComponent
+    },
+    {
+        path: 'employee-form',
+        component: EmployeeFormComponent
     }
 ];
 @NgModule(
@@ -54,10 +69,15 @@ const routesConfig: Routes = [
             NodeComponent,
             AngularComponent,
             Angular7Component,
-            AngularjsComponent
+            AngularjsComponent,
+            BoxDirective,
+            DirectiveDemoComponent,
+            EmployeeFormComponent
         ],
         imports: [
             BrowserModule,
+            FormsModule,
+            ReactiveFormsModule,
             RouterModule.forRoot(routesConfig, {useHash: true})
         ],
         bootstrap:[

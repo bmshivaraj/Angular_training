@@ -25,6 +25,9 @@ import { AngularComponent } from './components/nested-routes-demo/angular/angula
 import { AngularjsComponent } from './components/nested-routes-demo/angular/angularjs/angularjs.component';
 import { Angular7Component } from './components/nested-routes-demo/angular/angular7/angular7.component';
 import { NodeComponent } from './components/nested-routes-demo/node/node.component';
+import { BoxDirective } from './directives/box.directive';
+import { EmployeeFormComponent } from './components/nested-routes-demo/employee-form/employee-form.component';
+import { Ng1AppComponent } from './components/nested-routes-demo/ng1-app/ng1-app.component';
 
 
 @NgModule({
@@ -44,11 +47,7 @@ import { NodeComponent } from './components/nested-routes-demo/node/node.compone
     JavaComponent,
     CoreJavaComponent,
     JavaeeComponent,
-    SpringComponent,
-    AngularComponent,
-    AngularjsComponent,
-    Angular7Component,
-    NodeComponent,
+    SpringComponent
     
   ],
   imports: [
